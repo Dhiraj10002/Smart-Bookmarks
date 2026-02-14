@@ -23,27 +23,19 @@ A real-time bookmark manager built with Next.js, Supabase, and Tailwind CSS.
 
 ## 🧠 Problems Faced & Solutions
 
-### Realtime delete not updating
+### 1.  Realtime delete not updating
 - **Issue:** Delete was not reflecting instantly
 - **Fix:** Enabled `REPLICA IDENTITY FULL` and handled realtime events properly
 
-### WebSocket timeout
+### 2. WebSocket timeout
 - **Issue:** Realtime connection closed
 - **Fix:** Correct Supabase channel subscription and cleanup
 
- ### RLS policies blocking data access
+ ### 3. RLS policies blocking data access
 
-Issue:
+Issue: Initially bookmarks were not visible due to Row Level Security.
 
-Initially bookmarks were not visible due to Row Level Security.
-
-Root Cause:
-
-RLS enabled without correct policies.
-
-✅ Solution:
-
-Created policies:
+✅ Solution: Created policies:
 
 SELECT → user_id = auth.uid()
 
@@ -52,15 +44,11 @@ INSERT → user_id = auth.uid()
 DELETE → user_id = auth.uid()
 
 
- ### Google OAuth redirect failed after deployment
+ ### 4. Google OAuth redirect failed after deployment
 
-Issue:
+Issue: Google login worked locally but failed on Vercel.
 
-Google login worked locally but failed on Vercel.
-
-Root Cause:
-
-Production URL not added in Supabase Auth settings.
+Root Cause: Production URL not added in Supabase Auth settings.
 
 ✅ Solution:
 
